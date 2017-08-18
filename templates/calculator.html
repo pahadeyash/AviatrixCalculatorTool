@@ -1,0 +1,272 @@
+<!doctype html>
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+  function dx_last_mile_year_script(f){
+    if (f.bandwidth.value<=1000){
+      f.dx_last_mile.value = 2500;
+      f.dx_last_mile_year.value = f.dx_last_mile.value * 12;
+    }
+    else {
+      f.dx_last_mile.value = 10000;
+      f.dx_last_mile_year.value = f.dx_last_mile.value * 12;
+    }
+  }
+
+  function dx_port_output_script(f){
+    switch (f.bandwidth.value){
+      case "50":
+        f.dx_port.value = (0.03 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (0.03 * 24 * 365).toFixed(2);
+        break;
+      case "100":
+        f.dx_port.value = (0.06 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (0.06 * 24 * 365).toFixed(2);
+        break;
+      case "200":
+        f.dx_port.value = (0.12 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (0.12 * 24 * 365).toFixed(2);
+        break;
+      case "300":
+        f.dx_port.value = (0.18 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (0.18 * 24 * 365).toFixed(2);
+        break;
+      case "400":
+        f.dx_port.value = (0.24 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (0.24 * 24 * 365).toFixed(2);
+        break;
+      case "500":
+        f.dx_port.value = (0.30 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (0.30 * 24 * 365).toFixed(2);
+        break;
+      case "1000":
+        f.dx_port.value = (0.30 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (0.30 * 24 * 365).toFixed(2);
+        break;
+      case "10000":
+        f.dx_port.value = (2.25 * 24 * 30).toFixed(2);
+        f.dx_port_year.value = (2.25 * 24 * 365).toFixed(2);
+    }
+  }
+
+  function dx_encryption_output_script(f){
+    if (f.dx_encryption_input.checked){
+        f.dx_encryption.value = 20000;
+        f.dx_encryption_year.value = 20000 * 12;
+    }
+    else {
+      f.dx_encryption.value = 0;
+      f.dx_encryption_year.value = 0;
+    }
+
+  }
+
+  function dx_out_output_script(f){
+      f.dx_out.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * 0.03) / (12 * 8);
+      f.dx_out_year.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * 0.03) /  8;
+  }
+
+  function avx_out_output_script(f){
+    var bandwidth_GBm = (f.bandwidth.value * 60 * 60 * 24 * 365) / (12 * 8);
+    if (bandwidth_GBm<=1){
+        f.avx_out_output.value = 0;
+    }
+    else if (bandwidth_GBm > 1 && bandwidth_GBm <= 10000){
+      f.avx_out_output.value = (bandwidth_GBm * 0.09).toFixed(2);
+    }
+    else if (bandwidth_GBm > 10000 && bandwidth_GBm <= 40000){
+      f.avx_out_output.value = (((bandwidth_GBm - (10000 + 1)) * 0.085) + (0.09 * 10000)).toFixed(2);
+    }
+    else if (bandwidth_GBm > 40000 && bandwidth_GBm <= 100000){
+      f.avx_out_output.value = (((bandwidth_GBm - (40000 + 10000 + 1)) * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
+    }
+    else if (bandwidth_GBm > 100000 && bandwidth_GBm <= 350000){
+      f.avx_out_output.value = (((bandwidth_GBm - (100000 + 40000 + 10000 + 1)) * 0.05) + (100000 * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
+    }
+    else if (bandwidth_GBm > 350000){
+      f.avx_out_output.value = (((bandwidth_GBm - (350000 + 100000 + 40000 + 10000 + 1)) * 0.05) + (350000 * 0.05) + (100000 * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
+    }
+  }
+
+  function avx_instance_output_script(f){
+    switch (f.bandwidth.value){
+      case "50":
+        f.avx_instance_type_output.value = "t2.micro";
+        f.avx_instance_output.value = (0.012 * 24 * 365 * f.number_tunnels.value).toFixed(2);
+        break;
+      case "100":
+        f.avx_instance_type_output.value = "t2.micro";
+        f.avx_instance_output.value = (0.012 * 24 * 365 * f.number_tunnels.value).toFixed(2);
+        break;
+      case "200":
+        f.avx_instance_type_output.value = "m4.xlarge";
+        f.avx_instance_output.value = (0.2 * 24 * 365 * f.number_tunnels.value).toFixed(2);
+        break;
+      case "300":
+        f.avx_instance_type_output.value = "m4.xlarge";
+        f.avx_instance_output.value = (0.2 * 24 * 365 * f.number_tunnels.value).toFixed(2);
+        break;
+      case "400":
+        f.avx_instance_type_output.value = "m4.xlarge";
+        f.avx_instance_output.value = (0.2 * 24 * 365 * f.number_tunnels.value).toFixed(2);
+        break;
+      case "500":
+        f.avx_instance_type_output.value = "m4.xlarge";
+        f.avx_instance_output.value = (0.2 * 24 * 365 * f.number_tunnels.value).toFixed(2);
+        break;
+      case "1000":
+        f.avx_instance_type_output.value = "m4.4xlarge";
+        f.avx_instance_output.value = (0.8 * 24 * 365 * f.number_tunnels.value).toFixed(2);
+        break;
+      case "10000":
+        f.avx_instance_type_output.value = "m4.4xlarge";
+        f.avx_instance_output.value = (0.8 * 24 * 365 * 10 * f.number_tunnels.value).toFixed(2);
+        break;
+    }
+  }
+
+  function avx_dia_output_script(f){
+      if (Math.floor(f.bandwidth.value/1000)==0){
+        f.avx_dia_output.value = 300 * document.querySelectorAll('input[name=regions]:checked').length;
+      }
+      else {
+        f.avx_dia_output.value = Math.floor(f.bandwidth.value/1000) * 300 * document.querySelectorAll('input[name=regions]:checked').length;
+      }
+    }
+
+  function gbps_to_GB(f){
+    f.avx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.utilization.value) / (12 * 8 * 100);
+    f.dx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.utilization.value) / (12 * 8 * 100);
+    recalculate(f);
+  }
+
+  function regions_output_script(f){
+    f.number_tunnels.value = document.querySelectorAll('input[name=regions]:checked').length;
+    f.avx_licensing_output.value = f.number_tunnels.value * 300 * 12;
+    avx_dia_output_script(f);
+    recalculate(f);
+  }
+
+  function dx_calculate_total(f){
+    f.dx_total.value = Number(f.dx_last_mile.value) + Number(f.dx_port.value) + Number(f.dx_out.value) + Number(f.dx_encryption.value);
+    f.dx_total_year.value = Number(f.dx_last_mile_year.value) + Number(f.dx_port_year.value) + Number(f.dx_out_year.value) + Number(f.dx_encryption_year.value);
+  }
+
+  function recalculate(f){
+    dx_last_mile_year_script(f);
+    dx_port_output_script(f);
+    dx_out_output_script(f);
+    avx_out_output_script(f);
+    avx_dia_output_script(f)
+    avx_instance_output_script(f);
+    dx_calculate_total(f);
+
+  }
+  </script>
+</head>
+<body>
+  <title>Calculator</title>
+    <form>
+      <h1> Inputs </h1>
+      <table>
+        <tr>
+          <td><input type="number" name="bandwidth" value=500 onchange=gbps_to_GB(this.form)>Gbps</td>
+        </tr>
+        <tr>
+          <td>Regions:
+              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-west-1
+              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-west-2
+              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-east-1
+              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-east-2
+          </td>
+        </tr>
+        <tr>
+          <td>Providers:
+              <input type="checkbox" name="provider" onchange=regions_output_script(this.form)> Digital Realty
+              <input type="checkbox" name="provider" onchange=regions_output_script(this.form)> CoreSite
+              <input type="checkbox" name="provider" onchange=regions_output_script(this.form)> Equinix
+          </td>
+        </tr>
+        <tr>
+          <td><input type="number" name="utilization" value=20 onchange=gbps_to_GB(this.form)>% utilization</td>
+        </tr>
+        <tr>
+          <td><input type="number" name="number_vpc" value="">number of VPCs</td>
+        </tr>
+        <tr>
+          <td> Encryption required?:</td>
+          <td><input type="checkbox" name="dx_encryption_input" onchange=dx_encryption_output_script(this.form)> </td>
+        </tr>
+      </table>
+
+
+    <h1>Direct Connect Output</h1>
+      <table border=1>
+        <th>
+          <td> Monthly</td>
+          <td> Yearly</td>
+        </th>
+        <tr>
+          <td>Bandwidth</td>
+          <td><input type="number" name="dx_bandwidth_GB" disabled = "true">GB/m</td>
+        </tr>
+        <tr>
+          <td> Last Mile cost: </td>
+          <td><input type="number" name="dx_last_mile" value=2500 onchange=dx_last_mile_year_script(this.form)>$/Month</td>
+          <td><input type="number" name="dx_last_mile_year" disabled = "true">$/Year</td>
+        </tr>
+        <tr>
+          <td> Port Hour Cost:</td>
+          <td><input type="number" name="dx_port" value=21.60 onchange=dx_port_output_script(this.form)>$/Month</td>
+          <td><input type="number" name="dx_port_year" disabled = "true">$/Year</td>
+        </tr>
+        <tr>
+          <td> Data Transfer OUT:</td>
+          <td><input type="number" name="dx_out" value="0.03" onchange=dx_out_output_script(this.form)>$/Month </td>
+          <td><input type="number" name="dx_out_year" disabled = "true">$/Year</td>
+        </tr>
+        <tr>
+          <td> Encryption:</td>
+          <td><input type="number" name="dx_encryption" disabled = "true">$/Year</td>
+          <td><input type="number" name="dx_encryption_year" disabled = "true">$/Year</td>
+        </tr>
+        <tr>
+            <td>
+              Total Cost:
+            </td>
+            <td><input type="number" name="dx_total">$/Month</td>
+            <td><input type="number" name="dx_total_year">$/Year</td>
+        </tr>
+      </table>
+      <br>
+    <h1>Aviatrix Output</h1>
+      <table border=1>
+        <tr>
+          <td>Bandwidth: <input type="number" name="avx_bandwidth_GB" disabled = "true">GB/m</td>
+        </tr>
+        <tr>
+          <td> Number of tunnels: <input type="number" name="number_tunnels" onchange=regions_output_script(this.form)>                       </td>
+        </tr>
+        <tr>
+          <td> Aviatrix Licensing: <input type="number" name="avx_licensing_output">                       </td>
+        </tr>
+        <tr>
+          <td> DIA Cost:           <input type="number" name="avx_dia_output">                             </td>
+        </tr>
+        <tr>
+          <td> Data Transfer OUT:  <input type="number" name="avx_out_output" value="0.03"> Cost per GB </td>
+        </tr>
+        <tr>
+          <td> Instance type:      <input type="text" name="avx_instance_type_output" > Cost per GB </td>
+        </tr>
+        <tr>
+          <td> Instance Cost:      <input type="number" name="avx_instance_output"     value="0.03"> Cost per GB </td>
+        </tr>
+    </table>
+  </form>
+    <h1>Results</h1>
+
+</body>
+</html>

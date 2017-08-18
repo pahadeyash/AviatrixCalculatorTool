@@ -1,58 +1,65 @@
-function dx_last_mile_output_script(f){
+function dx_last_mile_year_script(f){
   if (f.bandwidth.value<=1000){
     f.dx_last_mile.value = 2500;
-    f.dx_last_mile_output.value = f.dx_last_mile.value * 12;
+    f.dx_last_mile_year.value = f.dx_last_mile.value * 12;
   }
   else {
     f.dx_last_mile.value = 10000;
-    f.dx_last_mile_output.value = f.dx_last_mile.value * 12;
+    f.dx_last_mile_year.value = f.dx_last_mile.value * 12;
   }
 }
 
 function dx_port_output_script(f){
   switch (f.bandwidth.value){
     case "50":
-      f.dx_port.value = 0.03;
-      f.dx_port_output.value = 0.03 * 24 * 365;
+      f.dx_port.value = (0.03 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (0.03 * 24 * 365).toFixed(2);
       break;
     case "100":
-      f.dx_port.value = 0.06;
-      f.dx_port_output.value = 0.06 * 24 * 365;
+      f.dx_port.value = (0.06 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (0.06 * 24 * 365).toFixed(2);
       break;
     case "200":
-      f.dx_port.value = 0.12;
-      f.dx_port_output.value = 0.12 * 24 * 365;
+      f.dx_port.value = (0.12 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (0.12 * 24 * 365).toFixed(2);
       break;
     case "300":
-      f.dx_port.value = 0.18;
-      f.dx_port_output.value = 0.18 * 24 * 365;
+      f.dx_port.value = (0.18 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (0.18 * 24 * 365).toFixed(2);
       break;
     case "400":
-      f.dx_port.value = 0.24;
-      f.dx_port_output.value = 0.24 * 24 * 365;
+      f.dx_port.value = (0.24 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (0.24 * 24 * 365).toFixed(2);
       break;
     case "500":
-      f.dx_port.value = 0.30;
-      f.dx_port_output.value = 0.30 * 24 * 365;
+      f.dx_port.value = (0.30 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (0.30 * 24 * 365).toFixed(2);
       break;
     case "1000":
-      f.dx_port.value = 0.30;
-      f.dx_port_output.value = 0.30 * 24 * 365;
+      f.dx_port.value = (0.30 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (0.30 * 24 * 365).toFixed(2);
       break;
     case "10000":
-      f.dx_port.value = 2.25;
-      f.dx_port_output.value = 2.25 * 24 * 365;
+      f.dx_port.value = (2.25 * 24 * 30).toFixed(2);
+      f.dx_port_year.value = (2.25 * 24 * 365).toFixed(2);
   }
 }
 
 function dx_encryption_output_script(f){
-  if (f.dx_encryption.checked){
-      f.dx_encryption_output.value = 20000;
+  if (f.dx_encryption_input.checked){
+      f.dx_encryption.value = 20000;
+      f.dx_encryption_year.value = 20000 * 12;
   }
   else {
-    f.dx_encryption_output.value = 0;
+    f.dx_encryption.value = 0;
+    f.dx_encryption_year.value = 0;
   }
 
+}
+
+function dx_out_output_script(f){
+    f.dx_out.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * 0.03) / (12 * 8);
+    f.dx_out_year.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * 0.03) /  8;
 }
 
 function avx_out_output_script(f){
@@ -114,9 +121,14 @@ function avx_instance_output_script(f){
   }
 }
 
-function dx_out_output_script(f){
-    f.dx_out_output.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.dx_out.value) / (12 * 8);
-}
+function avx_dia_output_script(f){
+    if (Math.floor(f.bandwidth.value/1000)==0){
+      f.avx_dia_output.value = 300 * document.querySelectorAll('input[name=regions]:checked').length;
+    }
+    else {
+      f.avx_dia_output.value = Math.floor(f.bandwidth.value/1000) * 300 * document.querySelectorAll('input[name=regions]:checked').length;
+    }
+  }
 
 function gbps_to_GB(f){
   f.avx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.utilization.value) / (12 * 8 * 100);
@@ -131,20 +143,18 @@ function regions_output_script(f){
   recalculate(f);
 }
 
-function avx_dia_output_script(f){
-    if (Math.floor(f.bandwidth.value/1000)==0){
-      f.avx_dia_output.value = 300 * document.querySelectorAll('input[name=regions]:checked').length;
-    }
-    else {
-      f.avx_dia_output.value = Math.floor(f.bandwidth.value/1000) * 300 * document.querySelectorAll('input[name=regions]:checked').length;
-    }
-  }
+function dx_calculate_total(f){
+  f.dx_total.value = Number(f.dx_last_mile.value) + Number(f.dx_port.value) + Number(f.dx_out.value) + Number(f.dx_encryption.value);
+  f.dx_total_year.value = Number(f.dx_last_mile_year.value) + Number(f.dx_port_year.value) + Number(f.dx_out_year.value) + Number(f.dx_encryption_year.value);
+}
 
 function recalculate(f){
-  dx_last_mile_output_script(f);
+  dx_last_mile_year_script(f);
   dx_port_output_script(f);
   dx_out_output_script(f);
   avx_out_output_script(f);
   avx_dia_output_script(f)
   avx_instance_output_script(f);
+  dx_calculate_total(f);
+
 }

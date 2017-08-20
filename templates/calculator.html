@@ -71,9 +71,7 @@
           <td><input type="number" name="dx_encryption_year" disabled = "true">$/Year</td>
         </tr>
         <tr>
-            <td>
-              Total Cost:
-            </td>
+            <td>Total Cost:</td>
             <td><input type="number" name="dx_total">$/Month</td>
             <td><input type="number" name="dx_total_year">$/Year</td>
         </tr>
@@ -81,26 +79,50 @@
       <br>
     <h1>Aviatrix Output</h1>
       <table border=1>
+        <th>
+          <td> Monthly</td>
+          <td> Yearly</td>
+        </th>
         <tr>
-          <td>Bandwidth: <input type="number" name="avx_bandwidth_GB" disabled = "true">GB/m</td>
+        <tr>
+          <td>Bandwidth: </td>
+          <td><input type="number" name="avx_bandwidth_GB" disabled = "true">GB/m</td>
+          <td></td>
         </tr>
         <tr>
-          <td> Number of tunnels: <input type="number" name="number_tunnels" onchange=regions_output_script(this.form)>                       </td>
+          <td> Number of tunnels: </td>
+          <td> <input type="number" name="number_tunnels" onchange=regions_output_script(this.form)>                       </td>
+          <td></td>
         </tr>
         <tr>
-          <td> Aviatrix Licensing: <input type="number" name="avx_licensing_output">                       </td>
+          <td> Instance type:  </td>
+          <td>    <input type="text" name="avx_instance_type_output" > </td>
+          <td></td>
         </tr>
         <tr>
-          <td> DIA Cost:           <input type="number" name="avx_dia_output">                             </td>
+          <td> Instance Cost:   </td>
+          <td>   <input type="number" name="avx_instance">$/Month </td>
+          <td>   <input type="number" name="avx_instance_year">$/Year </td>
         </tr>
         <tr>
-          <td> Data Transfer OUT:  <input type="number" name="avx_out_output" value="0.03"> Cost per GB </td>
+          <td> Aviatrix Licensing:</td>
+          <td><input type="number" name="avx_licensing">$/Month                      </td>
+          <td><input type="number" name="avx_licensing_year">$/Year                     </td>
         </tr>
         <tr>
-          <td> Instance type:      <input type="text" name="avx_instance_type_output" > Cost per GB </td>
+          <td> DIA Cost:</td>
+          <td><input type="number" name="avx_dia">$/Month                              </td>
+          <td><input type="number" name="avx_dia_year">$/Year                              </td>
         </tr>
         <tr>
-          <td> Instance Cost:      <input type="number" name="avx_instance_output"     value="0.03"> Cost per GB </td>
+          <td> Data Transfer OUT:</td>
+          <td> <input type="number" name="avx_out">$/Month </td>
+          <td> <input type="number" name="avx_out_year">$/Year </td>
+        </tr>
+        <tr>
+            <td>Total Cost:</td>
+            <td><input type="number" name="avx_total">$/Month</td>
+            <td><input type="number" name="avx_total_year">$/Year</td>
         </tr>
     </table>
   </form>

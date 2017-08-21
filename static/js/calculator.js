@@ -131,8 +131,8 @@ function avx_dia_output_script(f){
   }
 
 function gbps_to_GB(f){
-  f.avx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.utilization.value) / (12 * 8 * 100);
-  f.dx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.utilization.value) / (12 * 8 * 100);
+  f.avx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * $('#slider').slider('value')) / (12 * 8 * 100);
+  f.dx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * $('#slider').slider('value')) / (12 * 8 * 100);
   recalculate(f);
 }
 

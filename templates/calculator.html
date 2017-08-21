@@ -10,7 +10,7 @@
       <h1> Inputs </h1>
       <table>
         <tr>
-          <td><input type="number" name="bandwidth" value=500 onchange=gbps_to_GB(this.form)>Gbps</td>
+          <td><input type="number" name="bandwidth" value=500 onchange=gbps_to_GB(this.form)>Mbps</td>
         </tr>
         <tr>
           <td>Regions:
@@ -31,7 +31,7 @@
           <td><input type="number" name="utilization" value=20 onchange=gbps_to_GB(this.form)>% utilization</td>
         </tr>
         <tr>
-          <td><input type="number" name="number_vpc" value="">number of VPCs</td>
+          <td><input type="number" name="number_vpc" value="1" onchange=recalculate(this.form)>number of VPCs</td>
         </tr>
         <tr>
           <td> Encryption required?:</td>
@@ -96,7 +96,7 @@
         </tr>
         <tr>
           <td> Instance type:  </td>
-          <td>    <input type="text" name="avx_instance_type_output" > </td>
+          <td>    <input type="text" name="avx_instance_type" disabled = "true"> </td>
           <td></td>
         </tr>
         <tr>

@@ -1,4 +1,4 @@
-function dx_last_mile_year_script(f){
+ function dx_last_mile_year_script(f){
   if (f.bandwidth.value<=1000){
     f.dx_last_mile.value = 2500;
     f.dx_last_mile_year.value = f.dx_last_mile.value * 12;
@@ -133,6 +133,7 @@ function avx_dia_output_script(f){
 function gbps_to_GB(f){
   f.avx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.utilization.value) / (12 * 8 * 100);
   f.dx_bandwidth_GB.value = (f.bandwidth.value * 60 * 60 * 24 * 365 * f.utilization.value) / (12 * 8 * 100);
+  alert(f.dx_bandwidth_GB.value);
   recalculate(f);
 }
 

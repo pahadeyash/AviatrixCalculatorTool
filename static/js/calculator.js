@@ -47,8 +47,8 @@ function dx_port_output_script(f){
 
 function dx_encryption_output_script(f){
   if (f.dx_encryption_input.checked){
-      f.dx_encryption.value = 20000;
-      f.dx_encryption_year.value = 20000 * 12;
+      f.dx_encryption.value = 2000;
+      f.dx_encryption_year.value = 2000 * 12;
   }
   else {
     f.dx_encryption.value = 0;
@@ -137,10 +137,10 @@ function gbps_to_GB(f){
 }
 
 function regions_output_script(f){
-  f.number_tunnels.value = document.querySelectorAll('input[name=regions]:checked').length;
-  f.avx_licensing.value = f.number_tunnels.value * 300 * 12;
+  f.number_tunnels.value = document.querySelectorAll('input[name=regions]:checked').length * f.number_vpc.value;
+  f.avx_licensing.value = f.number_tunnels.value * 300;
+  f.avx_licensing_year.value = f.number_tunnels.value * 300 * 12;
   avx_dia_script(f);
-  recalculate(f);
 }
 
 function dx_calculate_total(f){
@@ -156,5 +156,8 @@ function recalculate(f){
   avx_dia_script(f)
   avx_instance_script(f);
   dx_calculate_total(f);
+  avx_calculate_total(f);
+  regions_output_script(f);
+
 
 }

@@ -29,7 +29,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js" integrity="sha256-N2Q5nbMunuogdOHfjiuzPsBMhoB80TFONAfO7MLhac0=" crossorigin="anonymous"></script>
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script>
-    $(function () { 
+    $(function () {
     var myChart = Highcharts.chart('container', {
         chart: {
             type: 'bar'
@@ -130,11 +130,11 @@
                   <br>
                   <h3> VPCs </h3>
                   <br>
-                  <input type="number" name="number_vpc" onchange=recalculate(this.form)></td>
+                  <input type="number" name="number_vpc" value=1 onchange=recalculate(this.form)></td>
                   <br>
                   <tr>
                     <h3> Encryption</h3>
-                    <td><input type="checkbox" name="dx_encryption_input" onchange=dx_encryption_output_script(this.form)> Yes</td>
+                    <td><input type="checkbox" name="dx_encryption_input" onchange=recalculate(this.form)> Yes</td>
                   </tr>
                 </table>
               </div>

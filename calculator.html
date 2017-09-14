@@ -38,69 +38,69 @@
             <br>
             <table>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=50 onchange=gbps_to_GB(this.form)>50M
+                <input type="radio" name="bandwidth" value=50 onchange=recalculate(this.form)>50M
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=100 onchange=gbps_to_GB(this.form)>100M
+                <input type="radio" name="bandwidth" value=100 onchange=recalculate(this.form)>100M
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=200 onchange=gbps_to_GB(this.form)>200M
+                <input type="radio" name="bandwidth" value=200 onchange=recalculate(this.form)>200M
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=300 onchange=gbps_to_GB(this.form)>300M
+                <input type="radio" name="bandwidth" value=300 onchange=recalculate(this.form)>300M
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=400 onchange=gbps_to_GB(this.form)>400M
+                <input type="radio" name="bandwidth" value=400 onchange=recalculate(this.form)>400M
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=500 onchange=gbps_to_GB(this.form)>500M
+                <input type="radio" name="bandwidth" value=500 onchange=recalculate(this.form)>500M
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=1000 onchange=gbps_to_GB(this.form)>1G
+                <input type="radio" name="bandwidth" value=1000 onchange=recalculate(this.form)>1G
               </label>
               <label class="radio-inline">
-                <input type="radio" name="bandwidth" value=10000 onchange=gbps_to_GB(this.form)>10G
+                <input type="radio" name="bandwidth" value=10000 onchange=recalculate(this.form)>10G
               </label>
-                <br>           
+                <br>
               <h3>Regions</h3>
               <br>
-              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-west-1
-              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-west-2
-              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-east-1
-              <input type="checkbox" name="regions" onchange=regions_output_script(this.form)> us-east-2
+              <input type="checkbox" name="regions" onchange=recalculate(this.form)> us-west-1
+              <input type="checkbox" name="regions" onchange=recalculate(this.form)> us-west-2
+              <input type="checkbox" name="regions" onchange=recalculate(this.form)> us-east-1
+              <input type="checkbox" name="regions" onchange=recalculate(this.form)> us-east-2
               <br>
               <h3>Providers</h3>
               <br>
               <label class="radio-inline">
-                <input type="radio" name="provider" onchange=gbps_to_GB(this.form)>Digital Realty 
+                <input type="radio" name="provider" onchange=recalculate(this.form)>Digital Realty
               </label>
               <label class="radio-inline">
-                <input type="radio" name="provider" onchange=gbps_to_GB(this.form)>CoreSite
+                <input type="radio" name="provider" onchange=recalculate(this.form)>CoreSite
               </label>
               <label class="radio-inline">
-                <input type="radio" name="provider" onchange=gbps_to_GB(this.form)>Equinix
+                <input type="radio" name="provider" onchange=recalculate(this.form)>Equinix
               </label>
               <label class="radio-inline">
-                <input type="radio" name="provider" onchange=gbps_to_GB(this.form)>AWS Direct Connect
+                <input type="radio" name="provider" onchange=recalculate(this.form)>AWS Direct Connect
               </label>
               <label class="radio-inline">
-                <input type="radio" name="provider" onchange=gbps_to_GB(this.form)>AT&T
+                <input type="radio" name="provider" onchange=recalculate(this.form)>AT&T
               </label>
               <label class="radio-inline">
-                <input type="radio" name="provider" onchange=gbps_to_GB(this.form)>Verizon
+                <input type="radio" name="provider" onchange=recalculate(this.form)>Verizon
               </label>
                 <br>
-              <h3> Utilization %</h3> 
+              <h3> Utilization %</h3>
               <div id="slider"></div>
-              <span type = "number" id="slider-value" name = "utilization" onchange=gbps_to_GB(this.form)></span> 
-              <br> 
+              <span type = "number" id="slider-value" name = "utilization" onchange=recalculate(this.form)></span>
+              <br>
               <h3> VPCs </h3>
               <br>
               <input type="number" name="number_vpc" value=""></td>
               <br>
               <tr>
                 <h3> Encryption</h3>
-                <td><input type="checkbox" name="dx_encryption_input" onchange=dx_encryption_output_script(this.form)> Yes</td>
+                <td><input type="checkbox" name="dx_encryption_input" onchange=recalculate(this.form)> Yes</td>
               </tr>
             </table>
             <h1>Direct Connect Output</h1>
@@ -115,17 +115,17 @@
                 </tr>
                 <tr>
                   <td> Last Mile cost: </td>
-                  <td><input type="number" name="dx_last_mile" value=2500 onchange=dx_last_mile_year_script(this.form)>$/Month</td>
+                  <td><input type="number" name="dx_last_mile" value=2500 onchange=recalculate(this.form)>$/Month</td>
                   <td><input type="number" name="dx_last_mile_year" disabled = "true">$/Year</td>
                 </tr>
                 <tr>
                   <td> Port Hour Cost:</td>
-                  <td><input type="number" name="dx_port" value=21.60 onchange=dx_port_output_script(this.form)>$/Month</td>
+                  <td><input type="number" name="dx_port" value=21.60 onchange=recalculate(this.form)>$/Month</td>
                   <td><input type="number" name="dx_port_year" disabled = "true">$/Year</td>
                 </tr>
                 <tr>
                   <td> Data Transfer OUT:</td>
-                  <td><input type="number" name="dx_out" value="0.03" onchange=dx_out_output_script(this.form)>$/Month </td>
+                  <td><input type="number" name="dx_out" value="0.03" onchange=recalculate(this.form)>$/Month </td>
                   <td><input type="number" name="dx_out_year" disabled = "true">$/Year</td>
                 </tr>
                 <tr>
@@ -154,7 +154,7 @@
                 </tr>
                 <tr>
                   <td> Number of tunnels: </td>
-                  <td> <input type="number" name="number_tunnels" onchange=regions_output_script(this.form)>                       </td>
+                  <td> <input type="number" name="number_tunnels" onchange=recalculate(this.form)>                       </td>
                   <td></td>
                 </tr>
                 <tr>
@@ -192,6 +192,6 @@
           </form>
         </div>
     </div>
-  </div> 
+  </div>
 </body>
 </html>

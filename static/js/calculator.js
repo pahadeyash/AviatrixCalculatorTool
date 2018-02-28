@@ -1,122 +1,148 @@
-function dx_last_mile(f){
-  if (f.bandwidth.value<=1000){
-    f.dx_last_mile.value = 2500;
-    f.dx_last_mile_year.value = f.dx_last_mile.value * 12;
+function dx_last_mile_calculations(bandwidth){
+  if (bandwidth<=1000){
+    return 2500;
   }
   else {
-    f.dx_last_mile.value = 10000;
+    return 10000;
+  }
+}
+
+function dx_last_mile(f){
+    f.dx_last_mile.value = dx_last_mile_calculations(f.bandwidth.value);
     f.dx_last_mile_year.value = f.dx_last_mile.value * 12;
+}
+
+function dx_port_calculations(regions_selected,bandwidth){
+  switch (bandwidth){
+    case "50":
+      return (0.03 * 24 * 30 * regions_selected).toFixed(2);;
+      break;
+    case "100":
+      return (0.06 * 24 * 30 * regions_selected).toFixed(2);
+      break;
+    case "200":
+      return (0.12 * 24 * 30 * regions_selected).toFixed(2);
+      break;
+    case "300":
+      return (0.18 * 24 * 30 * regions_selected).toFixed(2);
+      break;
+    case "400":
+      return (0.24 * 24 * 30 * regions_selected).toFixed(2);
+      break;
+    case "500":
+      return (0.30 * 24 * 30 * regions_selected).toFixed(2);
+      break;
+    case "1000":
+      return (0.30 * 24 * 30 * regions_selected).toFixed(2);
+      break;
+    case "10000":
+      return (2.25 * 24 * 30 * regions_selected).toFixed(2);
   }
 }
 
 function dx_port(f){
   var regions_selected = document.querySelectorAll('input[name=regions]:checked').length
-  switch (f.bandwidth.value){
-    case "50":
-      f.dx_port.value = (0.03 * 24 * 30 * regions_selected).toFixed(2);;
-      break;
-    case "100":
-      f.dx_port.value = (0.06 * 24 * 30 * regions_selected).toFixed(2);
-      break;
-    case "200":
-      f.dx_port.value = (0.12 * 24 * 30 * regions_selected).toFixed(2);
-      break;
-    case "300":
-      f.dx_port.value = (0.18 * 24 * 30 * regions_selected).toFixed(2);
-      break;
-    case "400":
-      f.dx_port.value = (0.24 * 24 * 30 * regions_selected).toFixed(2);
-      break;
-    case "500":
-      f.dx_port.value = (0.30 * 24 * 30 * regions_selected).toFixed(2);
-      break;
-    case "1000":
-      f.dx_port.value = (0.30 * 24 * 30 * regions_selected).toFixed(2);
-      break;
-    case "10000":
-      f.dx_port.value = (2.25 * 24 * 30 * regions_selected).toFixed(2);
-  }
+  f.dx_port.value = dx_port_calculations(regions_selected,f.bandwidth.value)
   f.dx_port_year.value = (f.dx_port.value * 12).toFixed(2);
 }
 
-function dx_encryption(f){
-  if (f.dx_encryption_input.checked){
-      f.dx_encryption.value = 2000;
-      f.dx_encryption_year.value = 2000 * 12;
+function dx_encryption_calculations(checked){
+  if (checked){
+    return 2000
   }
   else {
-    f.dx_encryption.value = 0;
-    f.dx_encryption_year.value = 0;
+    return 0
   }
+}
 
+function dx_encryption(f){
+  f.dx_encryption.value=dx_encryption_calculations(f.dx_encryption_input.checked)
+  f.dx_encryption_year.value = f.dx_encryption.value * 12;
+}
+
+function dx_out_calculations(bandwidth,utilization){
+  return (((bandwidth * 60 * 60 * 24 * 30 * 0.03) / (8 * 1024)) * (utilization/100)).toFixed(2);
 }
 
 function dx_out(f){
-    f.dx_out.value = (((f.bandwidth.value * 60 * 60 * 24 * 30 * 0.03) / (12 * 8 * 1024)) * (f.utilization.value/100)).toFixed(2);
+    f.dx_out.value = dx_out_calculations(f.bandwidth.value,f.utilization.value);
     f.dx_out_year.value = (f.dx_out.value * 12).toFixed(2);
 }
 
-function avx_out(f){
-  var bandwidth_GBm = f.avx_bandwidth_GB.value;
-  if (bandwidth_GBm<=1){
-      f.avx_out.value = 0;
+function avx_out_calculations(bandwidth_GB){ 
+  if (bandwidth_GB<=1){
+      return 0;
   }
-  else if (bandwidth_GBm > 1 && bandwidth_GBm <= 10000){
-    f.avx_out.value = (bandwidth_GBm * 0.09).toFixed(2);
+  else if (bandwidth_GB > 1 && bandwidth_GB <= 10000){
+    return (bandwidth_GB * 0.09).toFixed(2);
   }
-  else if (bandwidth_GBm > 10000 && bandwidth_GBm <= 40000){
-    f.avx_out.value = (((bandwidth_GBm - (10000 + 1)) * 0.085) + (0.09 * 10000)).toFixed(2);
+  else if (bandwidth_GB > 10000 && bandwidth_GB <= 40000){
+    return (((bandwidth_GB - (10000 + 1)) * 0.085) + (0.09 * 10000)).toFixed(2);
   }
-  else if (bandwidth_GBm > 40000 && bandwidth_GBm <= 100000){
-    f.avx_out.value = (((bandwidth_GBm - (40000 + 10000 + 1)) * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
+  else if (bandwidth_GB > 40000 && bandwidth_GB <= 100000){
+    return (((bandwidth_GB - (40000 + 10000 + 1)) * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
   }
-  else if (bandwidth_GBm > 100000 && bandwidth_GBm <= 350000){
-    f.avx_out.value = (((bandwidth_GBm - (100000 + 40000 + 10000 + 1)) * 0.05) + (100000 * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
+  else if (bandwidth_GB > 100000 && bandwidth_GB <= 350000){
+    return (((bandwidth_GB - (100000 + 40000 + 10000 + 1)) * 0.05) + (100000 * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
   }
-  else if (bandwidth_GBm > 350000){
-    f.avx_out.value = (((bandwidth_GBm - (350000 + 100000 + 40000 + 10000 + 1)) * 0.05) + (350000 * 0.05) + (100000 * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
+  else if (bandwidth_GB > 350000){
+    return (((bandwidth_GB - (350000 + 100000 + 40000 + 10000 + 1)) * 0.05) + (350000 * 0.05) + (100000 * 0.07) + (40000 * 0.085) + (0.09 * 10000)).toFixed(2);
   }
-  f.avx_out_year.value = (f.avx_out.value *12).toFixed(2);
 }
 
-function avx_instance(f){
-  switch (f.bandwidth.value){
+function avx_out(f){
+  f.avx_out.value = avx_out_calculations(f.avx_bandwidth_GB.value);
+  f.avx_out_year.value = (f.avx_out.value * 12).toFixed(2);
+}
+
+function avx_instance_calculations(bandwidth,tunnels){
+  switch (bandwidth){
     case "50":
     case "100":
-      f.avx_instance_type_output.value = "t2.micro";
-      f.avx_instance.value = (0.012 * 24 * 30 * f.number_tunnels.value).toFixed(2);
+      return { instance: "t2.micro", value: (0.012 * 24 * 30 * tunnels).toFixed(2) };
       break;
     case "200":
     case "300":
     case "400":
     case "500":
-      f.avx_instance_type_output.value = "m4.xlarge";
-      f.avx_instance.value = (0.2 * 24 * 30 * f.number_tunnels.value).toFixed(2);
+      return { instance: "m4.xlarge", value: (0.2 * 24 * 30 * tunnels).toFixed(2) };
       break;
     case "1000":
-      f.avx_instance_type_output.value = "m4.4xlarge";
-      f.avx_instance.value = (0.8 * 24 * 30 * f.number_tunnels.value).toFixed(2);
+      return { instance: "m4.4xlarge", value: (0.8 * 24 * 30 * tunnels).toFixed(2) };
       break;
     case "10000":
-      f.avx_instance_type_output.value = "m4.4xlarge";
-      f.avx_instance.value = (0.8 * 24 * 30 * 10 * f.number_tunnels.value).toFixed(2);
+      return { instance: "m4.4xlarge", value: (0.8 * 24 * 30 * 10 * tunnels).toFixed(2)};
       break;
   }
+}
+
+function avx_instance(f){
+  var result = avx_instance_calculations(f.bandwidth.value,f.number_tunnels.value)
+  f.avx_instance_type_output.value = result.instance;
+  f.avx_instance.value = result.value;
   f.avx_instance_year.value =   f.avx_instance.value * 12;
 }
 
+function avx_dia_calculations(bandwidth,tunnels){
+  if (Math.floor(bandwidth/1000)==0){
+    return 300 * tunnels;
+  }
+  else {
+    return Math.floor(bandwidth/1000) * 300 * tunnels;
+  }
+}
+
 function avx_dia(f){
-    if (Math.floor(f.bandwidth.value/1000)==0){
-      f.avx_dia.value = 300 * document.querySelectorAll('input[name=regions]:checked').length;
-    }
-    else {
-      f.avx_dia.value = Math.floor(f.bandwidth.value/1000) * 300 * document.querySelectorAll('input[name=regions]:checked').length;
-    }
-    f.avx_dia_year.value = f.avx_dia.value * 12;
+  f.avx_dia.value = avx_dia_calculations(f.bandwidth.value,f.number_tunnels.value);
+  f.avx_dia_year.value = f.avx_dia.value * 12;
   }
 
+function gbps_to_GB_calculations(bandwidth,utilization){
+  return ((bandwidth * 60 * 60 * 24 * 30 * utilization) / (8 * 1000 * 100)).toFixed(2);
+}
+
 function gbps_to_GB(f){
-  f.avx_bandwidth_GB.value = ((f.bandwidth.value * 60 * 60 * 24 * 30 * f.utilization.value) / (8 * 1000 * 100)).toFixed(2);
+  f.avx_bandwidth_GB.value = gbps_to_GB_calculations(f.bandwidth.value, f.utilization.value);
   f.dx_bandwidth_GB.value = f.avx_bandwidth_GB.value;
 }
 
@@ -126,15 +152,44 @@ function regions_output(f){
   f.avx_licensing_year.value = f.avx_licensing.value * 12;
 }
 
+function calculate_total(last_mile,port,out,encryption,instance,licensing,dia){
+  return (last_mile + port + out + encryption + instance + licensing + dia).toFixed(2);
+}
+
 function dx_calculate_total(f){
-  f.dx_total.value = (Number(f.dx_last_mile.value) + Number(f.dx_port.value) + Number(f.dx_out.value) + Number(f.dx_encryption.value)).toFixed(2);
-  f.dx_total_year.value = (Number(f.dx_last_mile_year.value) + Number(f.dx_port_year.value) + Number(f.dx_out_year.value) + Number(f.dx_encryption_year.value)).toFixed(2);
+  f.dx_total.value = calculate_total(Number(f.dx_last_mile.value), Number(f.dx_port.value),Number(f.dx_out.value), Number(f.dx_encryption.value),0,0,0);
+  f.dx_total_year.value = calculate_total(Number(f.dx_last_mile_year.value), Number(f.dx_port_year.value), Number(f.dx_out_year.value), Number(f.dx_encryption_year.value),0,0,0);
 }
 
 function avx_calculate_total(f){
-  f.avx_total.value = (Number(f.avx_instance.value) + Number(f.avx_licensing.value) + Number(f.avx_dia.value) + Number(f.avx_out.value)).toFixed(2);
-  f.avx_total_year.value = (Number(f.avx_instance_year.value) + Number(f.avx_licensing_year.value) + Number(f.avx_dia_year.value) + Number(f.avx_out_year.value)).toFixed(2);
+  f.avx_total.value = calculate_total(0,0,0,Number(f.avx_out.value),0,Number(f.avx_instance.value),Number(f.avx_licensing.value),Number(f.avx_dia.value));
+  f.avx_total_year.value = calculate_total(0,0,0,Number(f.avx_out_year.value),0,Number(f.avx_instance_year.value),Number(f.avx_licensing_year.value),Number(f.avx_dia_year.value));
 }
+
+function graph_totals(f){
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+        labels: ["Direct Connect", "Aviatrix"],
+        datasets: [{
+            label: 'Cost',
+            data: [f.dx_total_year.value, f.avx_total_year.value],
+            backgroundColor: [ 'rgba(4, 182, 243, 0.2)', 'rgba(239, 66, 10, 0.2)']
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+  })
+}
+
 
 function recalculate(f){
   gbps_to_GB(f)
@@ -152,6 +207,7 @@ function recalculate(f){
 
   dx_calculate_total(f);
   avx_calculate_total(f);
+  graph_totals(f);
 
 
 }
